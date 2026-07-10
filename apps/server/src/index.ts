@@ -21,6 +21,7 @@ function resolveCorsOrigin():
   return [
     /^https:\/\/[\w-]+\.netlify\.app$/,
     /^https:\/\/[\w-]+\.netlify\.live$/,
+    /^https:\/\/[\w-]+\.vercel\.app$/,
   ];
 }
 

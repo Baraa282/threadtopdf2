@@ -16,7 +16,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   CHROME_NOT_INSTALLED:
     'PDF generation is not ready yet. Wait a minute and try again.',
   API_UNAVAILABLE:
-    'Cannot reach the PDF server. Deploy the backend and set VITE_API_URL in Netlify to your API URL.',
+    'Cannot reach the PDF server. Set VITE_API_URL to your Render API URL and redeploy.',
 };
 
 export function getErrorMessage(error: ApiError): string {
