@@ -16,3 +16,5 @@ export function ensurePuppeteerCacheEnv(): string {
   process.env.PUPPETEER_CACHE_DIR = cacheDir;
   return cacheDir;
 }
+
+ensurePuppeteerCacheEnv();

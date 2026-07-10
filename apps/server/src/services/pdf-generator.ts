@@ -1,4 +1,4 @@
-import './lib/puppeteer-env.js';
+import '../lib/puppeteer-env.js';
 import puppeteer, { type Browser, type Page } from 'puppeteer';
 import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
