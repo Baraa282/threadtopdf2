@@ -5,8 +5,9 @@ import { DEFAULT_PDF_OPTIONS } from '@thread-to-pdf/shared';
 import { config } from '../config.js';
 import { getCacheKey, pdfCache, isCacheEnabled } from '../lib/cache.js';
 import { isAppError } from '../lib/errors.js';
+import { ensurePuppeteerCacheEnv } from '../lib/puppeteer-env.js';
 import { fetchThread } from '../services/thread-fetcher.js';
-import { generatePdf } from '../services/pdf-generator.js';
+import { generatePdf, getChromeExecutablePath } from '../services/pdf-generator.js';
 
 const generateBodySchema = z.object({
   url: z.string().min(1).max(2048),
@@ -103,5 +104,7 @@ export async function registerGenerateRoute(app: FastifyInstance): Promise<void>
     status: 'ok',
     version: 'v4-fxtwitter',
     timestamp: new Date().toISOString(),
+    chrome: getChromeExecutablePath() ?? null,
+    puppeteerCacheDir: ensurePuppeteerCacheEnv(),
   }));
 }

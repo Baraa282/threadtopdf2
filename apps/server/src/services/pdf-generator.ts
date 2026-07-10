@@ -1,3 +1,4 @@
+import './lib/puppeteer-env.js';
 import puppeteer, { type Browser, type Page } from 'puppeteer';
 import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
@@ -5,6 +6,7 @@ import { join } from 'node:path';
 import { PDFDocument } from 'pdf-lib';
 import type { PdfOptions, Thread } from '@thread-to-pdf/shared';
 import { config } from '../config.js';
+import { ensurePuppeteerCacheEnv } from '../lib/puppeteer-env.js';
 import { buildThreadHtml } from './html-builder.js';
 import { startAssetServer, type AssetServer } from './asset-server.js';
 import { cleanupThreadAssets, prepareThreadAssets } from './image-assets.js';
@@ -12,14 +14,25 @@ import { AppError } from '../lib/errors.js';
 
 let browserInstance: Browser | null = null;
 
-function getChromePath(): string | undefined {
+export function getChromeExecutablePath(): string | undefined {
+  ensurePuppeteerCacheEnv();
+
+  if (process.env.PUPPETEER_EXECUTABLE_PATH && existsSync(process.env.PUPPETEER_EXECUTABLE_PATH)) {
+    return process.env.PUPPETEER_EXECUTABLE_PATH;
+  }
+
   try {
     const path = puppeteer.executablePath();
     if (path && existsSync(path)) return path;
   } catch {
     // fall through
   }
+
   return undefined;
+}
+
+function getChromePath(): string | undefined {
+  return getChromeExecutablePath();
 }
 
 export async function getBrowser(): Promise<Browser> {

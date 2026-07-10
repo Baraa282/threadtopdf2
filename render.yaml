@@ -3,7 +3,7 @@ services:
     name: threadtopdf-api
     runtime: node
     plan: free
-    buildCommand: npm install -g pnpm@9.15.0 && pnpm install && pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/server build && cd apps/server && npx puppeteer browsers install chrome
+    buildCommand: npm install -g pnpm@9.15.0 && pnpm install && pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/server build && node apps/server/scripts/ensure-chrome.mjs
     startCommand: node apps/server/dist/index.js
     envVars:
       - key: NODE_ENV

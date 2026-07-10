@@ -1,9 +1,11 @@
+import './lib/puppeteer-env.js';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import { config } from './config.js';
+import { ensurePuppeteerCacheEnv } from './lib/puppeteer-env.js';
 import { registerGenerateRoute } from './routes/generate.js';
-import { closeBrowser } from './services/pdf-generator.js';
+import { closeBrowser, getChromeExecutablePath } from './services/pdf-generator.js';
 
 function resolveCorsOrigin():
   | boolean
@@ -55,6 +57,8 @@ process.on('SIGTERM', shutdown);
 try {
   await app.listen({ port: config.port, host: config.host });
   console.log(`Server running at http://${config.host}:${config.port}`);
+  console.log(`Puppeteer cache: ${ensurePuppeteerCacheEnv()}`);
+  console.log(`Chrome binary: ${getChromeExecutablePath() ?? 'NOT FOUND'}`);
 } catch (error) {
   app.log.error(error);
   process.exit(1);
