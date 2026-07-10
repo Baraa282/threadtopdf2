@@ -16,7 +16,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   CHROME_NOT_INSTALLED:
     'PDF generation is not ready yet. Wait a minute and try again.',
   API_UNAVAILABLE:
-    'Cannot reach the PDF server. Set VITE_API_URL to your Render API URL and redeploy.',
+    'Cannot reach the PDF server. On Vercel, set RENDER_API_URL to your Render backend URL.',
 };
 
 export function getErrorMessage(error: ApiError): string {
