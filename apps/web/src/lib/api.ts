@@ -1,6 +1,6 @@
 import type { ApiError, GenerateRequest, PdfOptions } from '@thread-to-pdf/shared';
 
-const API_BASE = (import.meta.env.VITE_API_URL ?? '/api').replace(/\/$/, '');
+const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 const REQUEST_TIMEOUT_MS = 180_000;
 
 const ERROR_MESSAGES: Record<string, string> = {
@@ -16,7 +16,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   CHROME_NOT_INSTALLED:
     'PDF generation is not ready yet. Wait a minute and try again.',
   API_UNAVAILABLE:
-    'Cannot reach the PDF server. On Vercel, set RENDER_API_URL to your Render backend URL.',
+    'Cannot reach the PDF server. Set RENDER_API_URL on Netlify/Vercel to your Render URL, then redeploy.',
 };
 
 export function getErrorMessage(error: ApiError): string {

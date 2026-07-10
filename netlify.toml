@@ -1,11 +1,22 @@
 [build]
   command = "corepack enable && corepack prepare pnpm@9.15.0 --activate && pnpm install && pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/web build"
   publish = "apps/web/dist"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# SPA routing — send all page routes to index.html
+[functions.generate]
+  timeout = 26
+
+# API proxy — must come BEFORE the SPA catch-all
+[[redirects]]
+  from = "/api/generate"
+  to = "/.netlify/functions/generate"
+  status = 200
+  force = true
+
+# SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

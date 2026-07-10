@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     return res.status(503).json({
       code: 'API_UNAVAILABLE',
       message:
-        'Set RENDER_API_URL (or VITE_API_URL) on Vercel to your Render backend URL, then redeploy.',
+        'Set RENDER_API_URL on Netlify/Vercel to your Render backend URL, then redeploy.',
     });
   }
 
