@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && node scripts/copy-browser-scripts.mjs",
     "start": "node dist/index.js",
     "postinstall": "node scripts/install-chrome.mjs || true",
     "install:chrome": "puppeteer browsers install chrome",
