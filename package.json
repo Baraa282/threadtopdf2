@@ -7,6 +7,7 @@
     "dev:fresh": "bash scripts/restart.sh",
     "stop": "lsof -ti:3001 | xargs kill -9 2>/dev/null || true; lsof -ti:5173 | xargs kill -9 2>/dev/null || true",
     "build": "pnpm -r build",
+    "build:server": "pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/server build",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\""
   },
