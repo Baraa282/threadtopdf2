@@ -14,15 +14,12 @@ const ERROR_MESSAGES: Record<string, string> = {
   THREAD_TOO_LONG: 'This thread is too long. Please use a shorter thread.',
   INTERNAL_ERROR: 'Something went wrong. Please try again later.',
   CHROME_NOT_INSTALLED:
-    'Chrome is required for PDF generation. Run: cd apps/server && npx puppeteer browsers install chrome',
+    'PDF generation is not ready yet. Wait a minute and try again.',
   API_UNAVAILABLE:
     'Cannot reach the PDF server. Deploy the backend and set VITE_API_URL in Netlify to your API URL.',
 };
 
 export function getErrorMessage(error: ApiError): string {
-  if (error.code === 'INTERNAL_ERROR' && error.message) {
-    return error.message;
-  }
   return ERROR_MESSAGES[error.code] ?? error.message;
 }
 

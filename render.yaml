@@ -3,10 +3,12 @@ services:
     name: threadtopdf-api
     runtime: node
     plan: free
-    buildCommand: npm install -g pnpm@9.15.0 && pnpm install && pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/server build
+    buildCommand: npm install -g pnpm@9.15.0 && pnpm install && pnpm --filter @thread-to-pdf/shared build && pnpm --filter @thread-to-pdf/server build && cd apps/server && npx puppeteer browsers install chrome
     startCommand: node apps/server/dist/index.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: HOST
         value: 0.0.0.0
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/project/src/.cache/puppeteer

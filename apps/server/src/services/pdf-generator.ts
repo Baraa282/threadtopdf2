@@ -4,6 +4,7 @@ import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { PDFDocument } from 'pdf-lib';
 import type { PdfOptions, Thread } from '@thread-to-pdf/shared';
+import { config } from '../config.js';
 import { buildThreadHtml } from './html-builder.js';
 import { startAssetServer, type AssetServer } from './asset-server.js';
 import { cleanupThreadAssets, prepareThreadAssets } from './image-assets.js';
@@ -29,8 +30,10 @@ export async function getBrowser(): Promise<Browser> {
   const executablePath = getChromePath();
   if (!executablePath) {
     throw new AppError(
-      'INTERNAL_ERROR',
-      'Chrome is not installed for PDF generation. Run: cd apps/server && npx puppeteer browsers install chrome',
+      'CHROME_NOT_INSTALLED',
+      config.nodeEnv === 'production'
+        ? 'PDF generation is not ready on the server yet. Wait a minute and try again.'
+        : 'Chrome is not installed for PDF generation. Run: cd apps/server && npx puppeteer browsers install chrome',
       503,
     );
   }

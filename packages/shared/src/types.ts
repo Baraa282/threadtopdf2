@@ -33,7 +33,8 @@ export type ErrorCode =
   | 'UNSUPPORTED_CONTENT'
   | 'THREAD_TOO_LONG'
   | 'API_UNAVAILABLE'
-  | 'INTERNAL_ERROR';
+  | 'INTERNAL_ERROR'
+  | 'CHROME_NOT_INSTALLED';
 
 export interface ApiError {
   code: ErrorCode;
